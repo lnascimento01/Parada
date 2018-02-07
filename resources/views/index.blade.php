@@ -1,0 +1,204 @@
+@extends('home')
+
+@section('title', 'Cadastro')
+@section('content')
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-info text-center">
+                                    <i class="fa fa-list-alt"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Total de Os's</p>
+                                    {{ $nOs }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-reload"></i> Atualizado em: {{ date('d/m/Y h:i:s') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-danger text-center">
+                                    <i class="ti-pulse"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Em andamento</p>
+                                    {{ $nOsAtiva }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-timer"></i> Atualizado em: {{ date('d/m/Y h:i:s') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-success text-center">
+                                    <i class="ti-wallet"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Receita</p>
+                                    R$ 1,345
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-calendar"></i> Atualizado em: {{ date('d/m/Y h:i:s') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-sm-6">
+                <div class="card">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-xs-5">
+                                <div class="icon-big icon-info text-center">
+                                    <i class="fa fa-users"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-7">
+                                <div class="numbers">
+                                    <p>Clientes</p>
+                                    {{ $nClientes }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="footer">
+                            <hr />
+                            <div class="stats">
+                                <i class="ti-reload"></i> Atualizado em: {{ date('d/m/Y h:i:s') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Users Behavior</h4>
+                        <p class="category">24 Hours performance</p>
+                    </div>
+                    <div class="content">
+                        <div id="chartHours" class="ct-chart"></div>
+                        <div class="footer">
+                            <div class="chart-legend">
+                                <i class="fa fa-circle text-info"></i> Open
+                                <i class="fa fa-circle text-danger"></i> Click
+                                <i class="fa fa-circle text-warning"></i> Click Second Time
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-reload"></i> Updated 3 minutes ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="header">
+                        <h4 class="title">Email Statistics</h4>
+                        <p class="category">Last Campaign Performance</p>
+                    </div>
+                    <div class="content">
+                        <div id="chartPreferences" class="ct-chart ct-perfect-fourth"></div>
+
+                        <div class="footer">
+                            <div class="chart-legend">
+                                <i class="fa fa-circle text-info"></i> Open
+                                <i class="fa fa-circle text-danger"></i> Bounce
+                                <i class="fa fa-circle text-warning"></i> Unsubscribe
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-timer"></i> Campaign sent 2 days ago
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card ">
+                    <div class="header">
+                        <h4 class="title">2015 Sales</h4>
+                        <p class="category">All products including Taxes</p>
+                    </div>
+                    <div class="content">
+                        <div id="chartActivity" class="ct-chart"></div>
+
+                        <div class="footer">
+                            <div class="chart-legend">
+                                <i class="fa fa-circle text-info"></i> Tesla Model S
+                                <i class="fa fa-circle text-warning"></i> BMW 5 Series
+                            </div>
+                            <hr>
+                            <div class="stats">
+                                <i class="ti-check"></i> Data information certified
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+<script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/chartist.min.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/demo.js') }}"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+
+    demo.initChartist();
+
+    $.notify({
+        icon: 'ti-gift',
+        message: "Welcome to <b>Paper Dashboard</b> - a beautiful Bootstrap freebie for your next project."
+
+    }, {
+        type: 'success',
+        timer: 4000
+    });
+
+});
+</script>
+@stop
