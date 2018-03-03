@@ -15,8 +15,12 @@ class ClientesController extends Controller {
         $company = 'Parada 351';
 
         $clientes = $cliente->all();
-
-        return view('clientes', ['listaMenus' => $menus->all(), 'clientes' => $clientes, 'ativo' => 3]);
+        $listagemOs = $this->montaOs(0);
+                $listaMenus = DB::table('menus')
+                            ->select('id', 'nome', 'url', 'icone')
+                            ->where('status', '=', 1)->orderBy('id', 'asc')->get();
+        
+        return view('clientes', ['listaMenus' => $listaMenus, 'clientes' => $clientes, 'ativo' => 3, 'listaOs' => $listagemOs]);
     }
 
     public function salvar(Request $request) {
@@ -56,6 +60,32 @@ class ClientesController extends Controller {
         DB::table('clientes')->where('id', '=', $id)->delete();
 
         return 1;
+    }
+
+    public function montaOs($id) {
+
+
+
+        if ($id == 0) {
+            $listagemOs = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
+                            ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
+                            ->select('lista_os.id', 'clientes.nome', 'lista_os.placa', 'veiculos_modelos.modelo', 'lista_os.status')->orderBy('lista_os.id', 'desc')->get();
+        } else {
+            $listagemOs['ordem'] = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
+                            ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
+                            ->select('lista_os.id', 'clientes.nome', 'lista_os.placa', 'lista_os.tp', 'lista_os.km', 'veiculos_modelos.modelo', 'lista_os.data_cadastro', 'lista_os.status')
+                            ->where('lista_os.id', '=', $id)->orderBy('id', 'desc')->first();
+
+            $listagemOs['servicos'] = DB::table('lista_os_servicos')->join('servicos', 'lista_os_servicos.id_servico', '=', 'servicos.id')
+                            ->select('servicos.nome', 'lista_os_servicos.valor')
+                            ->where('lista_os_servicos.id_lista_os', '=', $listagemOs['ordem']->id)->orderBy('servicos.nome', 'asc')->get();
+
+            $listagemOs['pecas'] = DB::table('lista_os_pecas')->join('pecas', 'lista_os_pecas.id_peca', '=', 'pecas.id')
+                            ->select('lista_os_pecas.qtd', 'pecas.id', 'pecas.nome', 'lista_os_pecas.valor')
+                            ->where('lista_os_pecas.id_lista_os', '=', $listagemOs['ordem']->id)->orderBy('pecas.nome', 'asc')->get();
+        }
+
+        return $listagemOs;
     }
 
 }

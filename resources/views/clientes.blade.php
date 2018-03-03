@@ -1,6 +1,6 @@
 @extends('home')
 
-@section('title', 'Cadastro')
+@section('title', 'Clientes')
 @section('content')
 <style>
 
@@ -80,42 +80,39 @@
         </div>
     </div>
     <div class="container" id="tab-lista">
-        <div class="row">
-            <div class="panel panel-primary filterable">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Clientes</h3>
-                    <div class="pull-right">
-                        <button class="btn btn-default btn-xs btn-filter" style="margin-top: -3px;"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
-                    </div>
-                </div>
-                <table class="table">
+        <div class="wrap-table100">
+            <div class="table100 ver1 m-b-110">
+                <legend class="title">Clientes</legend>
+                <table data-vertable="ver1" class="" id="table-clientes">
                     <thead>
-                        <tr class="filters">
-                            <th class="col-lg-1"><input type="text" class="form-control" placeholder="#" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Nome" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Email" disabled></th>
-                            <th><input type="text" class="form-control" placeholder="Bairro" disabled></th>
-                            <th class="col-lg-1"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-search"></span></th>
-                            <th class="col-lg-1"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-pencil-square-o"></span></th>
-                            <th class="col-lg-1"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-times-circle"></span></th>
+                        <tr class="row100 head">
+                            <th class="column100 column1 text-center" style="width: 2%!important;" data-column="column2">#</th>
+                            <th class="column100 column2" style="width: 40%!important;" data-column="column2">Nome</th>
+                            <th class="column100 column3 text-center" style="width: 10%!important;" data-column="column3">Email</th>
+                            <th class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">Bairro</th>
+                            <th class="column100 column5 text-center" style="width: 2%!important;" data-column="column5"><span class="fa fa-search"></span></th>
+                            <th class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="fa fa-pencil-square-o"></span></th>
+                            <th class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="fa fa-times-circle"></span></th>
+
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($clientes as $cliente)
-                        <tr id="tr-cliente-{{ $cliente->id }}">
-                            <td>{{ $cliente->id }}</td>
-                            <td>{{ $cliente->nome }}</td>
-                            <td>{{ $cliente->email }}</td>
-                            <td>{{ $cliente->bairro }}</td>
-                            <td><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-search"></i></span></td>
-                            <td><span class="btn btn-success edit" id="{{ $cliente->id }}"><i class="fa fa-pencil-square-o success"></i></span></td>
-                            <td><span class="btn btn-danger btn-del-cliente" idCliente="{{ $cliente->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
+                        <tr class="row100">
+                            <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $cliente->id }}</td>
+                            <td class="column100 column2" style="width: 40%!important;" data-column="column2">{{ $cliente->nome }}</td>
+                            <td class="column100 column3"  style="width: 20%!important;" data-column="column3">{{ $cliente->email }}</td>
+                            <td class="column100 column4 text-center" style="width: 20%!important;" data-column="column4">{{ $cliente->Bairro }}</td>
+                            <td class="column100 column5 text-center" style="width: 2%!important;" data-column="column5"><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-search"></i></span></td>
+                            <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                            <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-danger btn-del-os" idOs="{{ $cliente->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
         </div>
+
     </div>
 </div>
 <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
@@ -123,7 +120,7 @@
 <script type="text/javascript" src="{{ URL::asset('js/dataTables.js') }}"></script>
 <script>
 $(document).ready(function () {
-    $('.table').DataTable({
+    $('#table-clientes').DataTable({
         paging: true,
         "order": [[1, "asc"]],
         "searching": false,
@@ -134,6 +131,7 @@ $(document).ready(function () {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json"
         }
     });
+    $('#table-clientes').removeClass('dataTable');
     $(function () {
         $("#tabs").tabs();
     });

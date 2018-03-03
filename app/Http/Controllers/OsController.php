@@ -11,14 +11,13 @@ use App\Models\VeiculosModelo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
+use function base_path;
 use function view;
 
 class OsController extends Controller {
 
     public function index(Menu $menus, Cliente $cliente, Servico $servico, Peca $peca, VeiculosModelo $carro, ListaOs $listaOs) {
-        Mail::send('emailwelcome', ['key' => 'value'], function($message) {
-            $message->to('zeus.com@gmail.com', 'John Smith')->subject('Welcome!');
-        });
+
         $company = 'Parada 351';
 
         $clientes = $cliente->all()->toArray();
@@ -31,11 +30,13 @@ class OsController extends Controller {
 
         $listas = $this->autocomplete($clientes, $servicos, $pecas, $carros);
 
-        $listagemOs = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
-                        ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
-                        ->select('lista_os.id', 'clientes.nome', 'lista_os.placa', 'veiculos_modelos.modelo', 'lista_os.status')->orderBy('id', 'desc')->get();
+        $listaMenus = DB::table('menus')
+                            ->select('id', 'nome', 'url', 'icone')
+                            ->where('status', '=', 1)->orderBy('id', 'asc')->get();
+        
+        $listagemOs = $this->montaOs(0);
 
-        return view('os', ['listaMenus' => $menus->all(), 'clientes' => json_encode($listas['clientes']), 'servicos' => json_encode($listas['servicos']),
+        return view('os', ['listaMenus' => $listaMenus, 'clientes' => json_encode($listas['clientes']), 'servicos' => json_encode($listas['servicos']),
             'pecas' => json_encode($listas['pecas']), 'carros' => json_encode($listas['carros']), 'ativo' => 2, 'listaOs' => $listagemOs]);
     }
 
@@ -91,6 +92,59 @@ class OsController extends Controller {
             ]);
         }
         return '1';
+    }
+
+    public function montaOs($id) {
+
+
+
+        if ($id == 0) {
+            $listagemOs = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
+                            ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
+                            ->select('lista_os.id', 'clientes.nome', 'lista_os.placa', 'veiculos_modelos.modelo', 'lista_os.status')->orderBy('lista_os.id', 'desc')->get();
+        } else {
+            $listagemOs['ordem'] = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
+                            ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
+                            ->select('lista_os.id', 'clientes.nome', 'lista_os.placa', 'lista_os.tp', 'lista_os.km', 'veiculos_modelos.modelo', 'lista_os.data_cadastro', 'lista_os.status')
+                            ->where('lista_os.id', '=', $id)->orderBy('id', 'desc')->first();
+
+            $listagemOs['servicos'] = DB::table('lista_os_servicos')->join('servicos', 'lista_os_servicos.id_servico', '=', 'servicos.id')
+                            ->select('servicos.nome', 'lista_os_servicos.valor')
+                            ->where('lista_os_servicos.id_lista_os', '=', $listagemOs['ordem']->id)->orderBy('servicos.nome', 'asc')->get();
+
+            $listagemOs['pecas'] = DB::table('lista_os_pecas')->join('pecas', 'lista_os_pecas.id_peca', '=', 'pecas.id')
+                            ->select('lista_os_pecas.qtd', 'pecas.id', 'pecas.nome', 'lista_os_pecas.valor')
+                            ->where('lista_os_pecas.id_lista_os', '=', $listagemOs['ordem']->id)->orderBy('pecas.nome', 'asc')->get();
+        }
+
+        return $listagemOs;
+    }
+
+    public function geraPdf() {
+        $os = $this->montaOs($_POST['id']);
+        $pdf = \PDF::loadView('osPdf', array('os' => $os));
+
+        $pdf->setPaper('a4', 'portrait')->save(base_path() . "/public/upload/orcamento-" . $_POST['id'] . ".pdf")->stream('download.pdf');
+
+       return $this->email($_POST['id']);
+    }
+
+    public function email($idOs) {
+        $data = array(
+            'name' => "Orçamento - Nº" . $idOs,
+        );
+
+        Mail::send('emailwelcome', $data, function ($message) {
+
+            $message->from('zeus.com@gmail.com', 'Parada 351');
+
+            $message->to('zeus.com@gmail.com')->subject("Orçamento - Nº 16");
+//            $message->to('gabrielfroes01@gmail.com')->subject("Orçamento - Nº 16");
+            
+            $message->attach(base_path() . "/public/upload/orcamento-16.pdf");
+        });
+
+        return "true";
     }
 
 }

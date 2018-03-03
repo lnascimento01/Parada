@@ -1,59 +1,11 @@
 @extends('home')
 
-@section('title', 'Cadastro')
+@section("title", "Os's")
 @section('content')
 <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-lg-3 col-md-5" id="div-lateral">
-                <div class="card card-user">
-                    <div class="image">
-                        <img src="{{ URL::asset('img/road.jpg') }}" alt="..."/>
-                    </div>
-                    <div class="content">
-                        <div class="author">
-                            <img class="avatar border-white" src="{{ URL::asset('img/car-drawn.jpg') }}" alt="..."/>
-                            <h4 class="title">Veiculo<br />
-                               <!--<a href="#"><small></small></a>-->
-                            </h4>
-                        </div>
-                        <p class="description text-center">
-
-                        </p>
-                    </div>
-                    <hr>
-                </div>
-                <div class="card">
-                    <div class="header">
-                        <h4 class="title">Últimas Os's</h4>
-                    </div>
-                    <div class="content">
-                        <ul class="list-unstyled lista_os">
-                            @foreach (array_slice($listaOs->toArray(), 0, 6) as $os) 
-                            <li>
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <div class="avatar">
-                                            <img src="{{ URL::asset('img/car-drawn.jpg') }}" alt="Circle Image" class="img-circle img-no-padding img-responsive">
-                                        </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        {{ $os->nome }}
-                                        <br />
-                                        <span class="text-muted"><small>{{ $os->modelo }}</small></span>
-                                    </div>
-
-                                    <div class="col-xs-3 text-right">
-                                        <btn class="btn btn-sm btn-success btn-icon"><i class="fa fa-envelope"></i></btn>
-                                    </div>
-                                </div>
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-9" id="tabs">{{ csrf_field() }}
+            <div class="col-lg-12" id="tabs">{{ csrf_field() }}
                 <ul>
                     <li><a href="#tab-cadastro">Cadastro</a></li>
                     <li><a href="#tab-lista">Lista de Os's</a></li>
@@ -136,64 +88,53 @@
                     </form>
                 </div>
                 <div class="container" id="tab-lista">
-                    <div class="row">
-                        <section class="content">
-                            <h1>Ordens de serviço</h1>
-                            <div class="" style="width: 100%!important;">
-                                <div class="row">
-                                    <div class="panel panel-primary filterable">
-                                        <div class="panel-heading">
-                                            <h3 class="panel-title">Os's</h3>
-                                            <div class="pull-right">
-                                                <button class="btn btn-default btn-xs btn-filter" style="margin-top: -3px;"><span class="glyphicon glyphicon-filter"></span> Filtrar</button>
-                                            </div>
-                                        </div>
-                                        <table class="table" id="table-os">
-                                            <thead>
-                                                <tr class="filters">
-                                                    <th class="" style="width: 2%!important;"><input type="text" class="form-control" placeholder="#" disabled></th>
-                                                    <th class="" style="width: 40%!important;"><input type="text" class="form-control" placeholder="Cliente" disabled></th>
-                                                    <th class="" style="width: 10%!important;"><input type="text" class="form-control" placeholder="Veículo" disabled></th>
-                                                    <th class="" style="width: 10%!important;"><input type="text" class="form-control" placeholder="Placa" disabled></th>
-                                                    <th class="" style="width: 10%!important;"><input type="text" class="form-control" placeholder="Status" disabled></th>
-                                                    <th class="" style="width: 2%!important;"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-send"></span></th>
-                                                    <th class="" style="width: 2%!important;"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-search"></span></th>
-                                                    <th class="" style="width: 2%!important;"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-pencil-square-o"></span></th>
-                                                    <th class="" style="width: 2%!important;"><input type="text" class="form-control" placeholder="" disabled><span class="fa fa-times-circle"></span></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($listaOs as $os) 
-                                                <tr>
-                                                    <td>{{ $os->id }}</td>
-                                                    <td>{{ $os->nome }}</td>
-                                                    <td>{{ $os->modelo }}</td>
-                                                    <td>{{ $os->placa }}</td>
-                                                    <td>
-                                                        @if ($os->status == 0)
-                                                        Cancelada
-                                                        @elseif ($os->status == 1)
-                                                        Progresso
-                                                        @elseif ($os->status == 2)
-                                                        Aprovação
-                                                        @elseif ($os->status == 3)
-                                                        Finalizada
-                                                        @endif
-                                                    </td>
-                                                    <td><span class="btn btn-default view" id="{{ $os->id }}"><i class="fa fa-send"></i></span></td>
-                                                    <td><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-search"></i></span></td>
-                                                    <td><span class="btn btn-success edit" id="{{ $os->id }}"><i class="fa fa-pencil-square-o success"></i></span></td>
-                                                    <td><span class="btn btn-danger btn-del-os" idOs="{{ $os->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="wrap-table100">
+                        <div class="table100 ver1 m-b-110">
+                            <legend class="title">Ordens de serviço</legend>
+                            <table data-vertable="ver1" class="" id="table-os">
+                                <thead>
+                                    <tr class="row100 head">
+                                        <th class="column100 column1 text-center" style="width: 2%!important;" data-column="column2">#</th>
+                                        <th class="column100 column2" style="width: 40%!important;" data-column="column2">Cliente</th>
+                                        <th class="column100 column3 text-center" style="width: 10%!important;" data-column="column3">Veículo</th>
+                                        <th class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">Placa</th>
+                                        <th class="column100 column5 text-center" style="width: 10%!important;" data-column="column5">Status</th>
+                                        <th class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="fa fa-envelope"></span></th>
+                                        <th class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="fa fa-search"></span></th>
+                                        <th class="column100 column8 text-center" style="width: 2%!important;" data-column="column8"><span class="fa fa-pencil-square-o"></span></th>
+                                        <th class="column100 column9 text-center" style="width: 2%!important;" data-column="column9"><span class="fa fa-times-circle"></span></th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($listaOs as $os) 
+                                    <tr class="row100">
+                                        <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $os->id }}</td>
+                                        <td class="column100 column2" style="width: 40%!important;" data-column="column2">{{ $os->nome }}</td>
+                                        <td class="column100 column3" style="width: 10%!important;" data-column="column3">{{ $os->modelo }}</td>
+                                        <td class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">{{ $os->placa }}</td>
+                                        <td class="column100 column5 text-center" style="width: 10%!important;" data-column="column5"> 
+                                            @if ($os->status == 0)
+                                            Cancelada
+                                            @elseif ($os->status == 1)
+                                            Progresso
+                                            @elseif ($os->status == 2)
+                                            Aprovação
+                                            @elseif ($os->status == 3)
+                                            Finalizada
+                                            @endif
+                                        </td>
+                                        <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-default mail"  id="{{ $os->id }}" href="#"><i class="fa fa-send"></i></span></td>
+                                        <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-search"></i></span></td>
+                                        <td class="column100 column8 text-center" style="width: 2%!important;" data-column="column8"><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                                        <td class="column100 column9 text-center" style="width: 2%!important;" data-column="column9"><span class="btn btn-danger btn-del-os" idOs="{{ $os->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
-                </section>
             </div>
         </div>
     </div>
@@ -203,6 +144,11 @@
 <script type="text/javascript" src="{{ URL::asset('js/dataTables.js') }}"></script>
 <script>
 $(document).ready(function () {
+    $("#tabs").tabs({
+        activate: function (event, ui) {
+            var active = $('#tabs').tabs('option', 'active');
+        }
+    });
 
     $('#table-os').DataTable({
         paging: true,
@@ -215,25 +161,7 @@ $(document).ready(function () {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json"
         }
     });
-    $(function () {
-        $("#tabs").tabs({
-            activate: function (event, ui) {
-                var active = $('#tabs').tabs('option', 'active');
-                if ($("#tabs ul>li a").eq(active).attr("id") == 'ui-id-5') {
-//                    $('#div-lateral').show();
-//                    $('#tab-lista').remove('col-lg-12');
-//                    $('#tab-lista').addClass('col-lg-9');
-                } else if ($("#tabs ul>li a").eq(active).attr("id") == 'ui-id-6') {
-//                    $('#div-lateral').hide();
-//                    $('#tab-lista').addClass('col-lg-9');
-//                    $('#tab-lista').remove('col-lg-12');
-                }
-//                $("#tabid").html('the tab id is ' + $("#tabs ul>li a").eq(active).attr("href"));
-
-            }
-        });
-    });
-
+    $('#table-os').removeClass('dataTable');
 
     $("#txtCliente").autocomplete({
         maxResults: 10,
@@ -292,6 +220,20 @@ $(document).ready(function () {
             closeByKeyboard: false,
             message: $('<div class="text-center"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i></div>').load('modal/edit_os?id=' + $(this).attr('id'))
         });
+    });
+    $('.mail').on('click', function () {
+        var _token = $("input[name='_token']").val();
+        var css = "background-color: #0C1713; color: #FFFFFF; font-size: 28px; font: bold 34px 'Century Schoolbook', Georgia, Times, serif;";
+        var data = {_token: _token, id: $(this).attr('id')};
+        $.ajax({
+            url: '/os/pdf',
+            type: 'POST',
+            data: data,
+            success: function (result) {
+                if (result == 'true') {
+                    BootstrapDialog.alert('Email Enviado Com Sucesso!', 'Sucesso!', "Null", 'Success');
+                }
+            }});
     });
 });
 
