@@ -31,17 +31,27 @@ class OsController extends Controller {
         $listas = $this->autocomplete($clientes, $servicos, $pecas, $carros);
 
         $listaMenus = DB::table('menus')
-                            ->select('id', 'nome', 'url', 'icone')
-                            ->where('status', '=', 1)->orderBy('id', 'asc')->get();
-        
+                        ->select('id', 'nome', 'url', 'icone')
+                        ->where('status', '=', 1)->orderBy('id', 'asc')->get();
+                        
         $listagemOs = $this->montaOs(0);
+             
+        if (empty($listas['clientes'])) {
+            $listas['clientes'] = '';
+        }
+        if (empty($listas['servicos'])) {
+            $listas['servicos'] = '';
+        }
+        if (empty($listas['pecas'])) {
+            $listas['pecas'] = '';
+        }
 
         return view('os', ['listaMenus' => $listaMenus, 'clientes' => json_encode($listas['clientes']), 'servicos' => json_encode($listas['servicos']),
             'pecas' => json_encode($listas['pecas']), 'carros' => json_encode($listas['carros']), 'ativo' => 2, 'listaOs' => $listagemOs]);
     }
 
     public function autocomplete($clientes, $servicos, $pecas, $carros) {
-
+    
         $autocomplete = [];
 
         foreach ($carros as $carro) {
@@ -49,7 +59,9 @@ class OsController extends Controller {
         }
 
         foreach ($clientes as $cliente) {
+           
             $autocomplete['clientes'][] = array('label' => $cliente['nome'], 'value' => $cliente['nome'], 'id' => $cliente['id']);
+
         }
 
         foreach ($servicos as $servico) {
@@ -59,6 +71,7 @@ class OsController extends Controller {
         foreach ($pecas as $peca) {
             $autocomplete['pecas'][] = array('value', $peca['nome'], 'label' => $peca['nome'], 'id' => $peca['id'], 'valor' => $peca['valor']);
         }
+      
         return $autocomplete;
     }
 
@@ -95,9 +108,7 @@ class OsController extends Controller {
     }
 
     public function montaOs($id) {
-
-
-
+        
         if ($id == 0) {
             $listagemOs = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
                             ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
@@ -126,7 +137,7 @@ class OsController extends Controller {
 
         $pdf->setPaper('a4', 'portrait')->save(base_path() . "/public/upload/orcamento-" . $_POST['id'] . ".pdf")->stream('download.pdf');
 
-       return $this->email($_POST['id']);
+        return $this->email($_POST['id']);
     }
 
     public function email($idOs) {
@@ -140,7 +151,7 @@ class OsController extends Controller {
 
             $message->to('zeus.com@gmail.com')->subject("Orçamento - Nº 16");
 //            $message->to('gabrielfroes01@gmail.com')->subject("Orçamento - Nº 16");
-            
+
             $message->attach(base_path() . "/public/upload/orcamento-16.pdf");
         });
 

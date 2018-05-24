@@ -102,9 +102,9 @@
                             <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $cliente->id }}</td>
                             <td class="column100 column2" style="width: 40%!important;" data-column="column2">{{ $cliente->nome }}</td>
                             <td class="column100 column3"  style="width: 20%!important;" data-column="column3">{{ $cliente->email }}</td>
-                            <td class="column100 column4 text-center" style="width: 20%!important;" data-column="column4">{{ $cliente->Bairro }}</td>
+                            <td class="column100 column4 text-center" style="width: 20%!important;" data-column="column4">{{ $cliente->bairro }}</td>
                             <td class="column100 column5 text-center" style="width: 2%!important;" data-column="column5"><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-search"></i></span></td>
-                            <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                            <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-primary edit" id="{{ $cliente->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
                             <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-danger btn-del-os" idOs="{{ $cliente->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
                         </tr>
                         @endforeach

@@ -64,8 +64,6 @@ class ClientesController extends Controller {
 
     public function montaOs($id) {
 
-
-
         if ($id == 0) {
             $listagemOs = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
                             ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')

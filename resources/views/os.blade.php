@@ -126,7 +126,7 @@
                                         </td>
                                         <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-default mail"  id="{{ $os->id }}" href="#"><i class="fa fa-send"></i></span></td>
                                         <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-search"></i></span></td>
-                                        <td class="column100 column8 text-center" style="width: 2%!important;" data-column="column8"><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                                        <td class="column100 column8 text-center" style="width: 2%!important;" data-column="column8"><span class="btn btn-primary edit" id="{{ $os->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
                                         <td class="column100 column9 text-center" style="width: 2%!important;" data-column="column9"><span class="btn btn-danger btn-del-os" idOs="{{ $os->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
                                     </tr>
                                     @endforeach
@@ -232,6 +232,11 @@ $(document).ready(function () {
             success: function (result) {
                 if (result == 'true') {
                     BootstrapDialog.alert('Email Enviado Com Sucesso!', 'Sucesso!', "Null", 'Success');
+                    $('.form-horizontal')[0].reset;
+                    $('.lista-pecas').html('');
+                    $('.lista-servicos').html('');
+                    $('#txtCliente').prop('readonly', false);
+                    $('#txtVeiculo').prop('readonly', false);
                 }
             }});
     });
