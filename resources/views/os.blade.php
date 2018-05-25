@@ -18,7 +18,7 @@
                         <div class="panel-body">
                             <div id="form-cadastro">
                                 <div class="form-group col-lg-12">
-                                    <label for="" class="col-sm-2 control-label">Cliente:</label>
+                                    <label for="" class="col-sm-1 control-label">Cliente:</label>
                                     <div class="col-lg-4">
                                         <input type="text" class="form-control border-input" id="txtCliente" idCliente="" placeholder="Cliente">
                                     </div>
@@ -28,7 +28,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label for="" class="col-sm-2 control-label">Placa:</label>
+                                    <label for="" class="col-sm-1 control-label">Placa:</label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control border-input" id="txtPlaca" placeholder="Placa">
                                     </div>
@@ -42,18 +42,22 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label for="" class="col-sm-2 control-label">Complemento:</label>
+                                    <label for="" class="col-sm-1 control-label">Complemento:</label>
                                     <div class="col-lg-10">
                                         <textarea rows="5" class="form-control border-input" id="txtComplemento" placeholder="Complemento" value="">
                                         </textarea>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label for="" class="col-sm-2 control-label">Serviços:</label>
-                                    <div class="col-lg-7">
-                                        <input type="text" class="form-control border-input" id="servico" placeholder="Serviço" valor="">
+                                    <label for="" class="col-sm-1 control-label">Serviços:</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control border-input" id="servico" placeholder="Serviço">
                                     </div>
+                                    <label for="" class="col-sm-1 control-label">R$</label>
                                     <div class="col-lg-2">
+                                        <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorServico" valor="">
+                                    </div>
+                                        <div class="col-lg-2">
                                         <a href="#" class="col-lg-4 btn btn-success" id="btn-servicos"><i class="glyphicon glyphicon-plus primary"  style="text-align: center;"></i></a>
                                     </div>
                                 </div>
@@ -62,9 +66,13 @@
                                     </table>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label for="" class="col-sm-2 control-label">Lista de peças:</label>
-                                    <div class="col-lg-7">
-                                        <input type="text" class="form-control border-input" id="peca" placeholder="Peça" valor="">
+                                    <label for="" class="col-sm-1 control-label">Peças:</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control border-input" id="peca" placeholder="Peça">
+                                    </div>
+                                    <label for="" class="col-sm-1 control-label">R$:</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control border-input valor"  data-thousands="." data-decimal="," id="valorPeca" valor="">
                                     </div>
                                     <div class="col-lg-1">
                                         <input type="text" class="form-control border-input" id="qtd" value="0">
@@ -107,13 +115,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($listaOs as $os) 
+                                    @foreach ($listaOs as $os)
                                     <tr class="row100">
                                         <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $os->id }}</td>
                                         <td class="column100 column2" style="width: 40%!important;" data-column="column2">{{ $os->nome }}</td>
                                         <td class="column100 column3" style="width: 10%!important;" data-column="column3">{{ $os->modelo }}</td>
                                         <td class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">{{ $os->placa }}</td>
-                                        <td class="column100 column5 text-center" style="width: 10%!important;" data-column="column5"> 
+                                        <td class="column100 column5 text-center" style="width: 10%!important;" data-column="column5">
                                             @if ($os->status == 0)
                                             Cancelada
                                             @elseif ($os->status == 1)
@@ -142,6 +150,7 @@
 <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery-ui/jquery-ui.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/dataTables.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/jquery.maskMoney.js') }}"></script>
 <script>
 $(document).ready(function () {
     $("#tabs").tabs({
@@ -149,7 +158,7 @@ $(document).ready(function () {
             var active = $('#tabs').tabs('option', 'active');
         }
     });
-
+$('.valor').maskMoney();
     $('#table-os').DataTable({
         paging: true,
         "order": [[0, "asc"]],
@@ -165,7 +174,7 @@ $(document).ready(function () {
 
     $("#txtCliente").autocomplete({
         maxResults: 10,
-        source: <?= $clientes ?>,
+        source: <?=$clientes?>,
         select: function (event, ui) {
             $(this).attr('idCliente', ui.item.id);
             $(this).prop('readonly', true);
@@ -174,25 +183,25 @@ $(document).ready(function () {
 
     $("#peca").autocomplete({
         maxResults: 10,
-        source: <?= $pecas ?>,
+        source: <?=$pecas?>,
         select: function (event, ui) {
             $(this).attr('id-peca', ui.item.id);
-            $(this).attr('valor', ui.item.valor);
+            $('#valorPeca').val(number_format(ui.item.valor,2));
         }
     });
 
     $("#servico").autocomplete({
         maxResults: 10,
-        source:<?= $servicos ?>,
+        source:<?=$servicos?>,
         select: function (event, ui) {
             $(this).attr('id-servico', ui.item.id);
-            $(this).attr('valor', ui.item.valor);
+            $('#valorServico').val(number_format(ui.item.valor,2));
         }
     });
 
     $("#txtVeiculo").autocomplete({
         maxResults: 10,
-        source:<?= $carros ?>,
+        source:<?=$carros?>,
         select: function (event, ui) {
             $(this).attr('idVeiculo', ui.item.id);
             $(this).prop('readonly', true);
@@ -240,6 +249,18 @@ $(document).ready(function () {
                 }
             }});
     });
+    function number_format(string,decimals=2,decimal=',',thousands='.',pre='R$ ',pos=' $'){
+        var numbers = string.toString().match(/\d+/g).join([]);
+        numbers = numbers.padStart(decimals+1, "0");
+        var splitNumbers = numbers.split("").reverse();
+        var mask = '';
+            splitNumbers.forEach(function(d,i){
+                if (i == decimals) { mask = decimal + mask; }
+                if (i>(decimals+1) && ((i-2)%(decimals+1))==0) { mask = thousands + mask; }
+                    mask = d + mask;
+                });
+  return mask;
+}
 });
 
 </script>
