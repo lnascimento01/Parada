@@ -61,7 +61,7 @@
                         </div>
                         <div class="content" style="display: inline-block!important; vertical-align: bottom!important;">
                             <ul class="list-unstyled lista_os">
-                                @foreach (array_slice($listaOs->toArray(), 0, 6) as $os) 
+                                @foreach (array_slice($listaOs->toArray(), 0, 6) as $os)
                                 <li>
                                     <div class="row" style="margin-left: 5px;">
                                         <div class="col-xs-7 text-left" style="color: #F4F4F9">
@@ -122,11 +122,11 @@
                                                             </a>
                                                         </li>
                                                     </ul>
-                        
+
                                                 </div>-->
                     </div>
                 </nav>
-                <div>            
+                <div>
                     @yield('content')
                 </div>
                 <footer>
@@ -147,6 +147,7 @@
                     <script type="text/javascript" src="{{ URL::asset('js/bootstrap-notify.js') }}"></script>
                     <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
                     <script type="text/javascript" src="{{ URL::asset('js/perfect-scrollbar.js') }}"></script>
+<script type="text/javascript" src="{{ URL::asset('js/jquery.maskMoney.js') }}"></script>
                 </footer>
             </div>
     </body>

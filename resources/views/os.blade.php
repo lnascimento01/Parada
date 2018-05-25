@@ -72,7 +72,7 @@
                                     </div>
                                     <label for="" class="col-sm-1 control-label">R$:</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control border-input valor"  data-thousands="." data-decimal="," id="valorPeca" valor="">
+                                        <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorPeca" valor="">
                                     </div>
                                     <div class="col-lg-1">
                                         <input type="text" class="form-control border-input" id="qtd" value="0">
@@ -150,7 +150,6 @@
 <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/jquery-ui/jquery-ui.js') }}"></script>
 <script type="text/javascript" src="{{ URL::asset('js/dataTables.js') }}"></script>
-<script type="text/javascript" src="{{ URL::asset('js/jquery.maskMoney.js') }}"></script>
 <script>
 $(document).ready(function () {
     $("#tabs").tabs({
@@ -249,18 +248,7 @@ $('.valor').maskMoney();
                 }
             }});
     });
-    function number_format(string,decimals=2,decimal=',',thousands='.',pre='R$ ',pos=' $'){
-        var numbers = string.toString().match(/\d+/g).join([]);
-        numbers = numbers.padStart(decimals+1, "0");
-        var splitNumbers = numbers.split("").reverse();
-        var mask = '';
-            splitNumbers.forEach(function(d,i){
-                if (i == decimals) { mask = decimal + mask; }
-                if (i>(decimals+1) && ((i-2)%(decimals+1))==0) { mask = thousands + mask; }
-                    mask = d + mask;
-                });
-  return mask;
-}
+
 });
 
 </script>

@@ -18,6 +18,8 @@ Route::post('/os/pdf/',  'OsController@geraPdf');
 Route::get('/clientes', 'ClientesController@index');
 Route::post('/clientes/save', 'ClientesController@salvar');
 Route::post('/clientes/del', 'ClientesController@deletar');
+Route::get('/pecas', 'PecasController@index');
+Route::post('/pecas/save', 'PecasController@salvar');
 
 Route::group(['prefix' => 'modal'], function() {
 
@@ -25,6 +27,8 @@ Route::group(['prefix' => 'modal'], function() {
     Route::get('edit_cliente', 'ModalController@editCliente');
     Route::get('view_os', 'ModalController@viewOs');
     Route::get('edit_os', 'ModalController@editOs');
+    Route::get('view_peca', 'ModalController@viewPeca');
+    Route::get('edit_peca', 'ModalController@editPeca');
     
 });
 Route::get('/sendemail', function () {

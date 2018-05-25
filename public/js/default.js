@@ -112,6 +112,31 @@ $(document).ready(function (e) {
             }});
     });
 
+    $('#btn-salvar-peca, #btn-editar-peca').on('click', function () {
+        var _token = $("input[name='_token']").val();
+        var campo = $(this);
+
+        var data = {nome: $('#txtPeca').val(), valor: $('#txtValor').val(),CRUD: campo.attr('CRUD'), _token: _token};
+        var url = '/pecas/save';
+
+        $.ajax({
+            url: url,
+            type: 'POST',
+            data: data,
+            success: function (result) {
+                if (result == true) {
+                    $('.form-horizontal')[0].reset();
+                    if (campo.attr('CRUD') == 1) {
+                        BootstrapDialog.alert('Peça cadastrada com Sucesso!', 'Sucesso!', "Null", 'Success');
+                    } else if (campo.attr('CRUD') == 2) {
+                        BootstrapDialog.alert('Peça Atualizado Com Sucesso!', 'Sucesso!', "Null", 'Success');
+                    } else {
+                        BootstrapDialog.alert('Peça deletado Com Sucesso!', 'Sucesso!', "Null", 'Success');
+                    }
+                }
+            }});
+    });
+
     $('.btn-del-cliente').on('click', function () {
         var _token = $("input[name='_token']").val();
         var campo = $(this);
@@ -241,4 +266,16 @@ $(document).ready(function (e) {
             $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="' + $table.find('.filters th').length + '">No result found</td></tr>'));
         }
     });
+    function number_format(string,decimals=2,decimal=',',thousands='.',pre='R$ ',pos=' $'){
+        var numbers = string.toString().match(/\d+/g).join([]);
+        numbers = numbers.padStart(decimals+1, "0");
+        var splitNumbers = numbers.split("").reverse();
+        var mask = '';
+            splitNumbers.forEach(function(d,i){
+                if (i == decimals) { mask = decimal + mask; }
+                if (i>(decimals+1) && ((i-2)%(decimals+1))==0) { mask = thousands + mask; }
+                    mask = d + mask;
+                });
+  return mask;
+}
 });

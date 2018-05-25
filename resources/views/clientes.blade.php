@@ -138,7 +138,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.view', function () {
         BootstrapDialog.show({
-            title: 'Cliente',
+            title: 'Clientes',
             closeByBackdrop: false,
             closeByKeyboard: false,
             buttons: [{
@@ -153,7 +153,7 @@ $(document).ready(function () {
 
     $('body').on('click', '.edit', function () {
         BootstrapDialog.show({
-            title: 'Cliente',
+            title: 'Clientes',
             closeByBackdrop: false,
             closeByKeyboard: false,
             message: $('<div class="text-center"><i class="fa fa-cog fa-spin fa-3x fa-fw"></i></div>').load('modal/edit_cliente?id=' + $(this).attr('id'))

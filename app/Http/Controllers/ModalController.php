@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\ListaOs;
+use App\Models\Peca;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Request;
 use function view;
@@ -48,5 +49,20 @@ class ModalController extends Controller {
 
         return view('modalOsEdit', ['cliente' => $clientes, 'ativo' => 3]);
     }
+    
+    public function viewPeca(Request $request, Peca $peca) {
+
+        $pecas = Peca::where('id', '=', $request['id'])->first();
+
+        return view('modalPecasView', ['peca' => $pecas, 'ativo' => 3]);
+    }
+
+    public function editPeca(Request $request, Peca  $peca) {
+
+        $pecas = Peca::where('id', '=', $request['id'])->first();
+
+        return view('modalPecasEdit', ['peca' => $pecas, 'ativo' => 3]);
+    }
+
 
 }
