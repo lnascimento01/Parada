@@ -60,9 +60,9 @@
                         <tr class="row100">
                             <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $peca->id }}</td>
                             <td class="column100 column2" style="width: 50%!important;" data-column="column2">{{ $peca->nome }}</td>
-                            <td class="column100 column4 text-center" style="width: 20%!important;" data-column="column4">R$ {{number_format($peca->valor, 2, ',', '.')}}</td>
+                            <td class="column100 column4 text-left" style="width: 20%!important;" data-column="column4">R$ {{number_format($peca->valor, 2, ',', '.')}}</td>
                             <td class="column100 column5 text-center" style="width: 2%!important;" data-column="column5"><span class="btn btn-primary view" id="{{ $peca->id }}"><i class="fa fa-search"></i></span></td>
-                            <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-primary edit" id="{{ $peca->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                            <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-success edit" id="{{ $peca->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
                             <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-danger btn-del-os" idOs="{{ $peca->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
                         </tr>
 @endforeach
@@ -86,6 +86,7 @@ $(document).ready(function () {
         "bFilter": false,
         "bSearchable": false,
         "bInfo": false,
+        "lengthChange": false,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json"
         }
