@@ -17,7 +17,7 @@
                     <form class="form-horizontal">
                         <div class="panel-body">
                             <div id="form-cadastro">
-                                <div class="form-group col-lg-12">
+                                <div class="form-group col-lg-12" style="">
                                     <label for="" class="col-sm-1 control-label">Cliente:</label>
                                     <div class="col-lg-4">
                                         <input type="text" class="form-control border-input" id="txtCliente" idCliente="" placeholder="Cliente">
@@ -42,28 +42,11 @@
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <label for="" class="col-sm-1 control-label">Complemento:</label>
-                                    <div class="col-lg-10">
+                                    <label for="" class="col-sm-1 control-label">Obs:</label>
+                                    <div class="col-lg-9">
                                         <textarea rows="5" class="form-control border-input" id="txtComplemento" placeholder="Complemento" value="">
                                         </textarea>
                                     </div>
-                                </div>
-                                <div class="form-group col-sm-12">
-                                    <label for="" class="col-sm-1 control-label">Serviços:</label>
-                                    <div class="col-lg-5">
-                                        <input type="text" class="form-control border-input" id="servico" placeholder="Serviço">
-                                    </div>
-                                    <label for="" class="col-sm-1 control-label">R$</label>
-                                    <div class="col-lg-2">
-                                        <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorServico" valor="">
-                                    </div>
-                                        <div class="col-lg-2">
-                                        <a href="#" class="col-lg-4 btn btn-success" id="btn-servicos"><i class="glyphicon glyphicon-plus primary"  style="text-align: center;"></i></a>
-                                    </div>
-                                </div>
-                                <div class="table-responsive">
-                                    <table class="lista-servicos table table-condensed text-sm">
-                                    </table>
                                 </div>
                                 <div class="form-group col-sm-12">
                                     <label for="" class="col-sm-1 control-label">Peças:</label>
@@ -72,7 +55,7 @@
                                     </div>
                                     <label for="" class="col-sm-1 control-label">R$:</label>
                                     <div class="col-lg-2">
-                                        <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorPeca" valor="">
+                                        <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorPeca" value="">
                                     </div>
                                     <div class="col-lg-1">
                                         <input type="text" class="form-control border-input" id="qtd" value="0">
@@ -81,14 +64,27 @@
                                         <a href="#" class="col-lg-4 btn btn-success" id="btn-pecas"><span class="glyphicon glyphicon-plus primary"  style="text-align: center;"></span></a>
                                     </div>
                                 </div>
-                                <div class="table-responsive">
-                                    <table class="lista-pecas table table-condensed text-sm">
-                                    </table>
+                                <div class="lista-pecas">
                                 </div>
                                 <div class="form-group col-sm-12">
-                                    <div class="col-lg-3"  style="float: right;">
-                                        <a href="#" class="col-lg-6 btn btn-success" id="btn-salvar-os"><i class="fa fa-save primary"  style="text-align: center;"></i></a>
+                                    <label for="" class="col-sm-1 control-label">Serviços:</label>
+                                    <div class="col-lg-5">
+                                        <input type="text" class="form-control border-input" id="servico" placeholder="Serviço">
                                     </div>
+                                    <label for="" class="col-sm-1 control-label">R$</label>
+                                    <div class="col-lg-2">
+                                        <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorServico" value="">
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <a href="#" class="col-lg-4 btn btn-success" id="btn-servicos"><i class="glyphicon glyphicon-plus primary"  style="text-align: center;"></i></a>
+                                    </div>
+                                </div>
+                                <div class="lista-servicos">
+                                </div>
+                            </div>
+                            <div class="form-group col-sm-12">
+                                <div class="col-lg-3"  style="float: right;">
+                                    <a href="#" class="col-lg-6 btn btn-success" id="btn-salvar-os"><i class="fa fa-save primary"  style="text-align: center;"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -157,7 +153,7 @@ $(document).ready(function () {
             var active = $('#tabs').tabs('option', 'active');
         }
     });
-$('.valor').maskMoney();
+    $('.valor').maskMoney();
     $('#table-os').DataTable({
         paging: true,
         "order": [[0, "asc"]],
@@ -173,7 +169,7 @@ $('.valor').maskMoney();
 
     $("#txtCliente").autocomplete({
         maxResults: 10,
-        source: <?=$clientes?>,
+        source: <?= $clientes ?>,
         select: function (event, ui) {
             $(this).attr('idCliente', ui.item.id);
             $(this).prop('readonly', true);
@@ -182,25 +178,25 @@ $('.valor').maskMoney();
 
     $("#peca").autocomplete({
         maxResults: 10,
-        source: <?=$pecas?>,
+        source: <?= $pecas ?>,
         select: function (event, ui) {
             $(this).attr('id-peca', ui.item.id);
-            $('#valorPeca').val(number_format(ui.item.valor,2));
+            $('#valorPeca').val(number_format(ui.item.valor, 2));
         }
     });
 
     $("#servico").autocomplete({
         maxResults: 10,
-        source:<?=$servicos?>,
+        source:<?= $servicos ?>,
         select: function (event, ui) {
             $(this).attr('id-servico', ui.item.id);
-            $('#valorServico').val(number_format(ui.item.valor,2));
+            $('#valorServico').val(number_format(ui.item.valor, 2));
         }
     });
 
     $("#txtVeiculo").autocomplete({
         maxResults: 10,
-        source:<?=$carros?>,
+        source:<?= $carros ?>,
         select: function (event, ui) {
             $(this).attr('idVeiculo', ui.item.id);
             $(this).prop('readonly', true);
@@ -249,7 +245,22 @@ $('.valor').maskMoney();
             }});
     });
 
+    function number_format(string, decimals = 2, decimal = ',', thousands = '.', pre = 'R$ ', pos = ' $') {
+        var numbers = string.toString().match(/\d+/g).join([]);
+        numbers = numbers.padStart(decimals + 1, "0");
+        var splitNumbers = numbers.split("").reverse();
+        var mask = '';
+        splitNumbers.forEach(function (d, i) {
+            if (i == decimals) {
+                mask = decimal + mask;
+            }
+            if (i > (decimals + 1) && ((i - 2) % (decimals + 1)) == 0) {
+                mask = thousands + mask;
+            }
+            mask = d + mask;
+        });
+        return mask;
+    }
 });
-
 </script>
 @stop

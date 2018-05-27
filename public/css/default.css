@@ -30,5 +30,11 @@ table.dataTable thead .sorting_desc {
     background : none;
 }
 .ui-widget-content{
-    background: none;
+    background: #FFD400!important;
+}
+.ui-widget-header{
+    background: #FF6700!important;
+}
+.label {
+    color:#004E98!important;
 }

@@ -26,6 +26,9 @@ $(document).ready(function (e) {
                     <div class="col-lg-7">\n\
                     <input type="text" class="form-control border-input" id="itemPeca" readonly placeholder="Peça" id-peca="' + idPeca + '" custo="' + valor + '" value="' + item + '">\n\
                     </div>\n\
+                    <div class="col-lg-2">\n\
+                    <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorPeca" value="' + valor + '">\n\
+                    </div>\n\
                     <div class="col-lg-1">\n\
                     <input type="text" class="form-control border-input" id="itemQtd" readonly value="' + qtd + '">\n\
                     </div>\n\
@@ -49,6 +52,9 @@ $(document).ready(function (e) {
                     <label for="" class="col-sm-2 control-label"></label>\n\
                     <div class="col-lg-7">\n\
                     <input type="text" class="form-control border-input" id="itemServico" readonly placeholder="Serviço" custo="' + valor + '" id-servico="' + idServico + '" value="' + item + '">\n\
+                    </div>\n\
+                    <div class="col-lg-2">\n\
+                    <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorServico" value="' + valor + '">\n\
                     </div>\n\
                     <div class="col-lg-2">\n\
                     <span class="rm-item btn btn-danger"><i class="glyphicon glyphicon-remove danger"  style="text-align: center;"></i></span>\n\
@@ -116,7 +122,7 @@ $(document).ready(function (e) {
         var _token = $("input[name='_token']").val();
         var campo = $(this);
 
-        var data = {nome: $('#txtPeca').val(), valor: $('#txtValor').val(),CRUD: campo.attr('CRUD'), _token: _token};
+        var data = {nome: $('#txtPeca').val(), valor: $('#txtValor').val(), CRUD: campo.attr('CRUD'), _token: _token};
         var url = '/pecas/save';
 
         $.ajax({
@@ -151,7 +157,7 @@ $(document).ready(function (e) {
                     data: data,
                     success: function (result) {
                         if (result == true) {
-                            $('#tr-cliente-'+campo.attr('id')).remove();
+                            $('#tr-cliente-' + campo.attr('id')).remove();
                             BootstrapDialog.alert('Cliente deletado Com Sucesso!', 'Sucesso!', "Null", 'Success');
                         }
                     }});
@@ -266,16 +272,20 @@ $(document).ready(function (e) {
             $table.find('tbody').prepend($('<tr class="no-result text-center"><td colspan="' + $table.find('.filters th').length + '">No result found</td></tr>'));
         }
     });
-    function number_format(string,decimals=2,decimal=',',thousands='.',pre='R$ ',pos=' $'){
+    function number_format(string, decimals = 2, decimal = ',', thousands = '.', pre = 'R$ ', pos = ' $') {
         var numbers = string.toString().match(/\d+/g).join([]);
-        numbers = numbers.padStart(decimals+1, "0");
+        numbers = numbers.padStart(decimals + 1, "0");
         var splitNumbers = numbers.split("").reverse();
         var mask = '';
-            splitNumbers.forEach(function(d,i){
-                if (i == decimals) { mask = decimal + mask; }
-                if (i>(decimals+1) && ((i-2)%(decimals+1))==0) { mask = thousands + mask; }
-                    mask = d + mask;
-                });
-  return mask;
-}
+        splitNumbers.forEach(function (d, i) {
+            if (i == decimals) {
+                mask = decimal + mask;
+            }
+            if (i > (decimals + 1) && ((i - 2) % (decimals + 1)) == 0) {
+                mask = thousands + mask;
+            }
+            mask = d + mask;
+        });
+        return mask;
+    }
 });
