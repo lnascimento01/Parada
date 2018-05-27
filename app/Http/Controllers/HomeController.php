@@ -13,7 +13,9 @@ class HomeController extends Controller {
     public function index(Menu $menus, ListaOs $listaOs, Cliente $cliente) {
 
         $nOs = count($listaOs->all());
-        $nOsAtiva = ListaOs::where('status', '=', 1)->count();
+        $nOscancelada = ListaOs::where('status', '=', 0)->count();
+        $nOsAndamento = ListaOs::where('status', '=', 1)->count();
+        $nOsFinalizada = ListaOs::where('status', '=', 2)->count();
         $nClientes = count($cliente->all());
         $listagemOs = DB::table('lista_os')->join('veiculos_modelos', 'lista_os.id_veiculo', '=', 'veiculos_modelos.id')
                             ->join('clientes', 'lista_os.id_cliente', '=', 'clientes.id')
@@ -23,7 +25,7 @@ class HomeController extends Controller {
                             ->select('id', 'nome', 'url', 'icone')
                             ->where('status', '=', 1)->orderBy('id', 'asc')->get();
                 
-        return view('index', ['listaMenus' => $listaMenus, 'nOs' => $nOs, 'nOsAtiva' => $nOsAtiva,  'nClientes' => $nClientes, 'ativo' => 1, 'listaOs' => $listagemOs]);
+        return view('index', ['listaMenus' => $listaMenus, 'nOs' => $nOs, 'nOscancelada' => $nOscancelada,  'nOsAndamento' => $nOsAndamento,  'nOsFinalizada' => $nOsFinalizada,  'nClientes' => $nClientes, 'ativo' => 1, 'listaOs' => $listagemOs]);
     }
 
 }
