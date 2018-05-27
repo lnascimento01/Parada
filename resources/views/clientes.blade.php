@@ -2,10 +2,7 @@
 
 @section('title', 'Clientes')
 @section('content')
-<style>
-
-</style>
-<div class="col-lg-12" id="tabs">
+<div class="col-lg-12" id="tabs" style="min-height: 60%;">
     <ul>
         <li><a href="#tab-cadastro">cadastro</a></li>
         <li><a href="#tab-lista">Lista</a></li>
@@ -79,40 +76,37 @@
             </form>
         </div>
     </div>
-    <div class="container" id="tab-lista">
-        <div class="wrap-table100">
-            <div class="table100 ver1 m-b-110">
-                <legend class="title">Clientes</legend>
-                <table data-vertable="ver1" class="" id="table-clientes">
-                    <thead>
-                        <tr class="row100 head">
-                            <th class="column100 column1 text-center" style="width: 2%!important;" data-column="column2">#</th>
-                            <th class="column100 column2" style="width: 40%!important;" data-column="column2">Nome</th>
-                            <th class="column100 column3 text-center" style="width: 10%!important;" data-column="column3">Email</th>
-                            <th class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">Bairro</th>
-                            <th class="column100 column5 text-center" style="width: 2%!important;" data-column="column5"><span class="fa fa-search"></span></th>
-                            <th class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="fa fa-pencil-square-o"></span></th>
-                            <th class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="fa fa-times-circle"></span></th>
+    <div class="" id="tab-lista">
+        <table class="container">
+            <thead>
+                <tr>
+            <table class="" id="table-clientes">
+                <thead>
+                    <tr class="">
+                        <th class="text-center" style="width: 2%!important;" data-column="column2">#</th>
+                        <th class="" style="width: 40%!important;" data-column="column2">Nome</th>
+                        <th class="text-center" style="width: 10%!important;" data-column="column3">Email</th>
+                        <th class="text-center" style="width: 10%!important;" data-column="column4">Bairro</th>
+                        <th class="text-center" style="width: 2%!important;" data-column="column5"><span class="fa fa-search"></span></th>
+                        <th class="text-center" style="width: 2%!important;" data-column="column6"><span class="fa fa-pencil-square-o"></span></th>
+                        <th class="text-center" style="width: 2%!important;" data-column="column7"><span class="fa fa-times-circle"></span></th>
 
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($clientes as $cliente)
-                        <tr class="row100">
-                            <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $cliente->id }}</td>
-                            <td class="column100 column2" style="width: 40%!important;" data-column="column2">{{ $cliente->nome }}</td>
-                            <td class="column100 column3"  style="width: 20%!important;" data-column="column3">{{ $cliente->email }}</td>
-                            <td class="column100 column4 text-center" style="width: 20%!important;" data-column="column4">{{ $cliente->bairro }}</td>
-                            <td class="column100 column5 text-center" style="width: 2%!important;" data-column="column5"><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-search"></i></span></td>
-                            <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-primary edit" id="{{ $cliente->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
-                            <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-danger btn-del-os" idOs="{{ $cliente->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
-                        </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($clientes as $cliente)
+                    <tr class="">
+                        <td class="text-center" style="width: 2%!important;" data-column="column1">{{ $cliente->id }}</td>
+                        <td class="" style="width: 40%!important;" data-column="column2">{{ $cliente->nome }}</td>
+                        <td class="text-center"  style="width: 20%!important;" data-column="column3">{{ $cliente->email }}</td>
+                        <td class="text-center" style="width: 20%!important;" data-column="column4">{{ $cliente->bairro }}</td>
+                        <td class="text-center" style="width: 2%!important;" data-column="column5"><span class="btn btn-primary view" id="{{ $cliente->id }}"><i class="fa fa-search"></i></span></td>
+                        <td class="text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-success edit" id="{{ $cliente->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                        <td class="text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-danger btn-del-os" idOs="{{ $cliente->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
     </div>
 </div>
 <script type="text/javascript" src="{{ URL::asset('js/jquery-1.10.2.js') }}"></script>
@@ -126,6 +120,7 @@ $(document).ready(function () {
         "searching": false,
         "bFilter": false,
         "bSearchable": false,
+        "lengthChange": false,
         "bInfo": false,
         "language": {
             "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese.json"

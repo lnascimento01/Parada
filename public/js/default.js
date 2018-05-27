@@ -19,11 +19,11 @@ $(document).ready(function (e) {
         var item = $('#peca').val();
         var qtd = $('#qtd').val();
         var idPeca = $('#peca').attr('id-peca');
-        var valor = $('#peca').attr('valor');
+        var valor = $('#valorPeca').val();
 
         var inputCode = '<div class="form-group col-lg-12 peca">\n\
                     <label for="" class="col-sm-2 control-label"></label>\n\
-                    <div class="col-lg-7">\n\
+                    <div class="col-lg-5">\n\
                     <input type="text" class="form-control border-input" id="itemPeca" readonly placeholder="Peça" id-peca="' + idPeca + '" custo="' + valor + '" value="' + item + '">\n\
                     </div>\n\
                     <div class="col-lg-2">\n\
@@ -46,11 +46,11 @@ $(document).ready(function (e) {
     $('#btn-servicos').on('click', function () {
         var item = $('#servico').val();
         var idServico = $('#servico').attr('id-servico');
-        var valor = $('#servico').attr('valor');
+        var valor = $('#valorServico').val();
 
         var inputCode = '<div class="form-group col-lg-12 servico">\n\
                     <label for="" class="col-sm-2 control-label"></label>\n\
-                    <div class="col-lg-7">\n\
+                    <div class="col-lg-5">\n\
                     <input type="text" class="form-control border-input" id="itemServico" readonly placeholder="Serviço" custo="' + valor + '" id-servico="' + idServico + '" value="' + item + '">\n\
                     </div>\n\
                     <div class="col-lg-2">\n\

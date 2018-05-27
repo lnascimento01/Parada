@@ -53,7 +53,7 @@
                                     <div class="col-lg-5">
                                         <input type="text" class="form-control border-input" id="peca" placeholder="Peça">
                                     </div>
-                                    <label for="" class="col-sm-1 control-label">R$:</label>
+                                    <label for="" class="col-sm-1 control-label">R$</label>
                                     <div class="col-lg-2">
                                         <input type="text" class="form-control border-input valor" data-thousands="." data-decimal="," id="valorPeca" value="">
                                     </div>
@@ -91,53 +91,47 @@
                         <div class="clearfix"></div>
                     </form>
                 </div>
-                <div class="container" id="tab-lista">
-                    <div class="wrap-table100">
-                        <div class="table100 ver1 m-b-110">
-                            <legend class="title">Ordens de serviço</legend>
-                            <table data-vertable="ver1" class="" id="table-os">
-                                <thead>
-                                    <tr class="row100 head">
-                                        <th class="column100 column1 text-center" style="width: 2%!important;" data-column="column2">#</th>
-                                        <th class="column100 column2" style="width: 40%!important;" data-column="column2">Cliente</th>
-                                        <th class="column100 column3 text-center" style="width: 10%!important;" data-column="column3">Veículo</th>
-                                        <th class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">Placa</th>
-                                        <th class="column100 column5 text-center" style="width: 10%!important;" data-column="column5">Status</th>
-                                        <th class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="fa fa-envelope"></span></th>
-                                        <th class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="fa fa-search"></span></th>
-                                        <th class="column100 column8 text-center" style="width: 2%!important;" data-column="column8"><span class="fa fa-pencil-square-o"></span></th>
-                                        <th class="column100 column9 text-center" style="width: 2%!important;" data-column="column9"><span class="fa fa-times-circle"></span></th>
-
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($listaOs as $os)
-                                    <tr class="row100">
-                                        <td class="column100 column1 text-center" style="width: 2%!important;" data-column="column1">{{ $os->id }}</td>
-                                        <td class="column100 column2" style="width: 40%!important;" data-column="column2">{{ $os->nome }}</td>
-                                        <td class="column100 column3" style="width: 10%!important;" data-column="column3">{{ $os->modelo }}</td>
-                                        <td class="column100 column4 text-center" style="width: 10%!important;" data-column="column4">{{ $os->placa }}</td>
-                                        <td class="column100 column5 text-center" style="width: 10%!important;" data-column="column5">
-                                            @if ($os->status == 0)
-                                            Cancelada
-                                            @elseif ($os->status == 1)
-                                            Progresso
-                                            @elseif ($os->status == 2)
-                                            Aprovação
-                                            @elseif ($os->status == 3)
-                                            Finalizada
-                                            @endif
-                                        </td>
-                                        <td class="column100 column6 text-center" style="width: 2%!important;" data-column="column6"><span class="btn btn-default mail"  id="{{ $os->id }}" href="#"><i class="fa fa-send"></i></span></td>
-                                        <td class="column100 column7 text-center" style="width: 2%!important;" data-column="column7"><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-search"></i></span></td>
-                                        <td class="column100 column8 text-center" style="width: 2%!important;" data-column="column8"><span class="btn btn-primary edit" id="{{ $os->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
-                                        <td class="column100 column9 text-center" style="width: 2%!important;" data-column="column9"><span class="btn btn-danger btn-del-os" idOs="{{ $os->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
-                                    </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="" id="tab-lista">
+                    <table class="container">
+                        <thead>
+                            <tr>
+                                <th class="text-center" style="width: 2%!important;"><h1>#</h1></th>
+                                <th class="" style="width: 40%!important;"><h1>Cliente</h1></th>
+                                <th class="text-center" style="width: 10%!important;"><h1>Veículo</h1></th>
+                                <th class="text-center" style="width: 10%!important;"><h1>Placa</h1></th>
+                                <th class="text-center" style="width: 10%!important;"><h1>Status</h1></th>
+                                <th class="text-center" style="width: 2%!important;"><span class="fa fa-envelope"></span></th>
+                                <th class="text-center" style="width: 2%!important;"><span class="fa fa-search"></span></th>
+                                <th class="text-center" style="width: 2%!important;"><span class="fa fa-pencil-square-o"></span></th>
+                                <th class="text-center" style="width: 2%!important;"><span class="fa fa-times-circle"></span></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($listaOs as $os)
+                            <tr>
+                                <td class="text-center" style="width: 2%!important;" >{{ $os->id }}</td>
+                                <td class="" style="width: 40%!important;">{{ $os->nome }}</td>
+                                <td class="" style="width: 10%!important;">{{ $os->modelo }}</td>
+                                <td class="text-center" style="width: 10%!important;">{{ $os->placa }}</td>
+                                <td class="text-center" style="width: 10%!important;">
+                                    @if ($os->status == 0)
+                                    Cancelada
+                                    @elseif ($os->status == 1)
+                                    Progresso
+                                    @elseif ($os->status == 2)
+                                    Aprovação
+                                    @elseif ($os->status == 3)
+                                    Finalizada
+                                    @endif
+                                </td>
+                                <td class="text-center" style="width: 2%!important;"><span class="btn btn-default mail"  id="{{ $os->id }}" href="#"><i class="fa fa-send"></i></span></td>
+                                <td class="text-center" style="width: 2%!important;"><span class="btn btn-primary view" id="{{ $os->id }}"><i class="fa fa-search"></i></span></td>
+                                <td class="text-center" style="width: 2%!important;"><span class="btn btn-success edit" id="{{ $os->id }}"><i class="fa fa-pencil-square-o"></i></span></td>
+                                <td class="text-center" style="width: 2%!important;"><span class="btn btn-danger btn-del-os" idOs="{{ $os->id }}" CRUD="0"><i class="glyphicon glyphicon-trash"></i></span></td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -26,7 +26,7 @@
         <!--<link rel="stylesheet" href="{{ elixir('css/main.css') }}">-->
         <!--<link rel="stylesheet" href="{{ elixir('css/util.css') }}">-->
         <!--<link rel="stylesheet" href="{{ elixir('css/animate.css') }}">-->
-        <!--<link rel="stylesheet" href="{{ elixir('css/perfect-scrollbar.css') }}">-->
+        <link rel="stylesheet" href="{{ elixir('css/perfect-scrollbar.css') }}">
 
         <!--  Fonts and icons     -->
         <link href='https://fonts.googleapis.com/css?family=Muli:400,300' rel='stylesheet' type='text/css'>
@@ -171,7 +171,7 @@
         <script type="text/javascript" src="{{ URL::asset('js/bootstrap-dialog.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/bootstrap-notify.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/main.js') }}"></script>
-        <!--<script type="text/javascript" src="{{ URL::asset('js/perfect-scrollbar.js') }}"></script>-->
+        <script type="text/javascript" src="{{ URL::asset('js/perfect-scrollbar.min.js') }}"></script>
         <script type="text/javascript" src="{{ URL::asset('js/jquery.maskMoney.js') }}"></script>
     </footer>
 
